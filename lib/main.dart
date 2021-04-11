@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
       _questionIndex += 1;
     });
 
-    if (_questionIndex < questions.length) {}
+    if (_questionIndex >= questions.length) {}
   }
 
   @override
