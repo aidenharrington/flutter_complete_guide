@@ -13,27 +13,52 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var _questionIndex = 0;
   // const is compile time constant
   // implicitly runtime constant as a result
   // you can also add const in front of value instead of variable
   final _questions = const [
     {
       'questionText': 'What\'s your favourite colour?',
-      'answers': ['Black', 'Red', 'Green', 'White'],
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 5},
+        {'text': 'Green', 'score': 3},
+        {'text': 'White', 'score': 1},
+      ],
     },
     {
       'questionText': 'What\s your favourite animal?',
-      'answers': ['Rabbit', 'Snake', 'Elephand', 'Lion'],
+      'answers': [
+        {'text': 'Rabbit', 'score': 10},
+        {'text': 'Snake', 'score': 5},
+        {'text': 'Elephant', 'score': 3},
+        {'text': 'Lion', 'score': 1},
+      ],
     },
     {
       'questionText': 'Who\'s your favorite instructor?',
-      'answers': ['Joe', 'Smith', 'Bo Horvat', 'Bob'],
+      'answers': [
+        {'text': 'Joe', 'score': 10},
+        {'text': 'Smith', 'score': 5},
+        {'text': 'Bo Horvat', 'score': 3},
+        {'text': 'Bob', 'score': 1},
+      ],
     },
   ];
   // questions = [] - does not work if questions is a const
 
-  void _answerQuestion() {
+  var _questionIndex = 0;
+  var _totalscore = 0;
+
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalscore = 0;
+    });
+  }
+
+  void _answerQuestion(int score) {
+    _totalscore += score;
     setState(() {
       _questionIndex += 1;
     });
@@ -51,7 +76,7 @@ class _MyAppState extends State<MyApp> {
                 answerQuestion: _answerQuestion,
                 questionIndex: _questionIndex,
                 questions: _questions)
-            : Result(),
+            : Result(_totalscore, _resetQuiz),
       ),
     );
   }
